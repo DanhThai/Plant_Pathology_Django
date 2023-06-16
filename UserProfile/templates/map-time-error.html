@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>MapTiler Geocoding control</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
+    
+    <script src="https://unpkg.com/@maptiler/geocoding-control@latest/leaflet.umd.js"></script>
+    <link href="https://unpkg.com/@maptiler/geocoding-control@latest/style.css" rel="stylesheet"/>
+    
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+    
+    <style>
+      #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+    </style>
+  </head>
+  <body>
+    <div id="map">
+      <!-- <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a> -->
+    </div>
+    <!-- <p><a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></p> -->
+    <script>
+      const apiKey = 'olCohv5QvxMN4f4Opgoi';
+      
+      const map = L.map('map').setView([16, 108], 10); //starting position
+      var marker = null;
+      L.tileLayer(`https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${apiKey}`,{ //style URL
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 1,
+        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+        crossOrigin: true
+      }).addTo(map);
+      L.control.maptilerGeocoding({ apiKey: apiKey }).addTo(map);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+            // this is just a marker placed in that position
+            marker = L.marker([lat, lng]).addTo(map);
+            // move the map to have the location in its center
+            map.panTo(new L.LatLng(latit, longit));
+        })}; 
+
+      maptilersdk.config.apiKey = apiKey;
+      map.on('click', async (e) => {
+            const { lat, lng } = e.latlng;
+            const results = await maptilersdk.geocoding.reverse([lng, lat]);
+            address = results.features[0].place_name_vi
+            console.log(address);
+            marker.setLatLng([lat, lng])
+            .update()
+            .addTo(map)
+            .bindPopup(`<h3>Địa chỉ:</h3> ${address}`)
+            .openPopup();
+        });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+.alert-messages{
+    z-index: 20;
+    height: 60px;
+    min-width: 30%;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 1px 2px 2px 1px #c0c2c1;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.alert-messages.alert-error {
+    background-color: #ffffff;
+    color: #ff0000;
+
+}
+
+.message{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+.message strong{
+    text-align: start;
+}
+
+.icon-alert-error {
+    padding-top: 4px;
+    font-size: 1.3em;
+    text-align: center;
+    --fa-primary-color: #ffffff; 
+    --fa-secondary-color: #ff4000; 
+    --fa-secondary-opacity: 1;
+}
+
+.alert-messages .close-message{
+    color: black;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.message ul li{
+    list-style-type: none;
+}

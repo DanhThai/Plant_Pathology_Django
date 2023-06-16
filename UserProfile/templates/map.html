@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapTiler Geocoder component</title>
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+    <!-- <link href="https://unpkg.com/@maptiler/geocoding-control@latest/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/@maptiler/geocoding-control@latest/maptilersdk.umd.js"></script> -->
+    <script src="https://unpkg.com/@maptiler/geocoding-control@latest/leaflet.umd.js"></script>
+    <link href="https://unpkg.com/@maptiler/geocoding-control@latest/style.css" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        var address = ""
+        var marker = new maptilersdk.Marker({
+            color: '#3FB1CE',
+            draggable: false
+        });
+        var popup = new maptilersdk.Popup().setMaxWidth("200px");
+
+        maptilersdk.config.apiKey = 'olCohv5QvxMN4f4Opgoi';
+        const map = new maptilersdk.Map({
+            container: 'map', // container's id or the HTML element to render the map
+            style: maptilersdk.MapStyle.STREETS,
+            center: [108.21268639164253, 16.057697209253718], // starting position [lng, lat]
+            zoom: 10, // starting zoom
+            geolocateControl: true //disable the geolocate control
+        });
+        // const gc = new maptilersdkMaptilerGeocoder.GeocodingControl({
+        //     apiKey: maptilersdk.config.apiKey,
+        //     class: 'geocoder',
+        //     showResultsWhileTyping: true,
+        // });
+        // map.addControl(gc, 'top-left');
+        L.control.maptilerGeocoding({ apiKey: key }).addTo(map);
+
+        map.on('click', async (e) => {
+            const { lng, lat } = e.lngLat;
+            const results = await maptilersdk.geocoding.reverse([lng, lat]);
+            address = results.features[0].place_name_vi
+            console.log(address);
+
+            marker.setLngLat([lng, lat]).addTo(map);
+            popup.setLngLat(e.lngLat)
+            .setHTML(`Địa chỉ: ${address}`)
+            .addTo(map);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.content__header {
+    width: 70%;
+    max-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content__header p {
+    padding-left: 10px;
+    color: #00A257;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.content__line {
+    width: 70%;
+    height: 3px;
+    margin-bottom: 20px;
+    background-color: #00A257;
+}
+
+.content__main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.disease-info {
+    width: 70%;
+    min-height: 350px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.name-title {
+    margin-right: 10px;
+    font-weight: 900;
+}
+
+.paragraph {
+    margin-left: 10px;
+    margin-right: 10px;
+}

@@ -1,0 +1,95 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/pesticide-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include 'messages.html' %}
+<div class="content">
+    <div class="content__header">
+        <p>Chi tiết sản phẩm</p>
+    </div>
+    <div class="content__line"></div>
+    <div class="content__main">
+        <div class="pesticide">
+            <div class="pesticide-images">
+                <div class="image-focus">
+                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
+                </div>
+                <div class="image-range">
+                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
+                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
+                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
+                </div>
+            </div>
+
+            <div class="pesticide-detail">
+                <p class="pesticide__name">{{pesticide.name}}</p>
+                <div class="pesticide__info">
+                    <p class="title">Nhà sản xuất:</p>
+                    <p>{{pesticide.producer}}</p>
+                </div>
+                <div class="pesticide__info">
+                    <p class="title">Sử dụng cho cây:</p>
+                    <p>{{pesticide.plant}}</p>
+                </div>
+                <div class="pesticide_description">
+                    <p class="title"> Mô tả: </p>
+                    <p class="paragragh">{{pesticide.description | linebreaksbr }}</p>
+                </div>
+                <div class="pesticide__info">
+                    <p class="title">Giá sản phẩm:</p>
+                    <p class="price">{{pesticide.price}} đ</p>
+                </div>
+                <div class="add-to-cart">
+                    <div class="quantity">
+                        <p class="title"> Số lượng:</p>
+                        <div>
+                            <button class="quantity__btn">
+                                <img src="{% static 'images/minus-solid.svg' %}" alt="">
+                            </button>
+                            <input class="quantity__number" value="2" disabled />
+                            <button class="quantity__btn">
+                                <img src="{% static 'images/plus-solid.svg' %}" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="add-cart-btn">
+                        <a href="">Thêm vào giỏ hàng</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content__footer">
+        <div class="content__header">
+            <p>Sản phẩm liên quan</p>
+        </div>
+        <div class="content__line"></div>
+
+        <div class="list-pesticides">
+            {% for pesticide_item in pesticides %}
+                <div class="card-item"> 
+                    <div class="pesticide-image">
+                        <a href="{% url 'pesticide-detail-page' id=pesticide_item.id %}">
+                            <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="plant-image">
+                        </a>
+                    </div>
+                    <p class="pesticide-name">{{pesticide_item.name}}</p>
+                    <p class="producer">{{pesticide_item.producer}}</p>
+                    <div class="price-cart">
+                        <p class="price">{{pesticide_item.price}} đ</p>
+                        <a href="" class="add-cart">Thêm vào giỏ hàng</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

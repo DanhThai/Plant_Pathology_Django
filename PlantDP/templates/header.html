@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>   
+    {% load static %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+        {% block css %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="header">
+            <div class="header-menu">
+                <img src="{% static 'images/logo_long.png' %}" alt="" class="logo">
+                <ul>
+                    <li><a class="menu-item" href="{% url 'home-page' %}">Trang chủ</a></li>
+                    <li><a class="menu-item" href="{% url 'diseases-page' %}">Các loại bệnh</a></li>
+                    <li><a class="menu-item" href="{% url 'pesticides-page' %}">Các loại thuốc</a></li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <div class="profile">
+                        <div class="cart">
+                            <a href="{% url 'shopping-cart-page' %}" class="cart-icon"> 
+                                <img src="{% static 'images/cart-icon.svg' %}" alt=""> 
+                            </a>
+                        </div>
+                        <div class="avatar">
+                            {% if user.avatar %}
+                                <img src="/{{user.avatar}}" alt="Avatar">
+                            {% else %}
+                                <img src="{% static 'avatars/user.png' %}" alt="Avatar">
+                            {% endif %}
+                            <p class="full_name">{{user.full_name}}</p>
+                        </div>
+                        <div class="logout">
+                            <a href="{% url 'logout' %}" ><img src="{% static 'images/logout.svg' %}" alt=""> </a>
+                        </div>
+                        
+                    </div>
+                {% else %}
+                    <div class="login">
+                        <a href="{% url 'login' %}">Login</a>
+                    </div>
+                {% endif %}
+                
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <div class="footer">
+            <div class="about-web">
+                <p class="footer__title">Giới thiệu</p>
+                <p class="footer__content">PlantPathology là trang web dự đoán loại bệnh từ ảnh của người dùng tải lên. 
+                    Bên cạnh đó, cũng bán các sản phẩm thuốc để phục vụ tiêu diệt sâu bệnh. </p>
+            </div>
+            <div class="contact">
+                <p class="footer__title">Tổng đài kỹ thuật</p>
+                <p class="footer__content">Mua hàng: 0334095344.</p>
+                <p class="footer__content">Kỹ thuật: 0334095344.</p>
+            </div>
+            <div class="banking">
+                <p class="footer__title">Thanh toán</p>
+                <div class="footer__image">
+                    <img src="{% static 'images/Paypal-Logo.svg' %}" alt="paypal_icon">
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

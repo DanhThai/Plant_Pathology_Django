@@ -1,0 +1,46 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/disease-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="content__header">
+        <p>Chi tiết bệnh</p>
+    </div>
+    <div class="content__line"></div>
+    <div class="content__main">
+        <div class="disease-info">
+            <div style="display: flex; margin-left: 15px;">
+                <p class="name-title">Tên cây trồng:</p>
+                <p>{{disease.plant}}</p>
+            </div>
+            <div style="display: flex; margin-left: 15px;">
+                <p class="name-title">Nhiễm bệnh:</p>
+                <p>{{disease.name}}</p>
+            </div>
+            <div style="margin-left: 15px;">
+                <p class="name-title">Hình ảnh:</p>
+                <div class="disease-image">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div style="margin-left: 15px;">
+                <p class="name-title">Nguyên nhân:</p>
+                <p class="paragraph">{{disease.cause}}</p>
+            </div>
+            <div style="margin-left: 15px;">
+                <p class="name-title">Triệu chứng:</p>
+                <p class="paragraph">{{disease.symptom}}</p>
+            </div>
+            <div style="margin-left: 15px;">
+                <p class="name-title">Biện pháp phòng ngừa:</p>
+                <p class="paragraph">{{disease.precautions | linebreaksbr}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/messages.css'%}">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    function closeMessage(){
+        $(".alert-messages").remove();
+    }
+</script>
+
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert-messages {{ message.tags }}">
+        <div class="message">
+            <i class="fa-solid fa-circle-exclamation icon-{{ message.tags }}" style="width: 25px; height: 25px;"></i>
+            <strong>{{message | linebreaksbr}}</strong>
+        </div>
+        <i class="fa-solid fa-xmark close-message" onclick="closeMessage()"></i>
+    </div>
+    {% endfor %}
+{% endif %}
+

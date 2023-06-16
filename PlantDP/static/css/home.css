@@ -1,0 +1,135 @@
+.container__upload {
+  width: 100%;
+}
+
+h2 {
+  color: rgb(2 164 86);
+  text-align: center;
+  font-weight: 800;
+}
+
+.form-upload {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-upload .group-upload {
+  margin: auto;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  font-size: 1em;
+  width: 20%;
+  height: 15px;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 1px 3px #0a0a0a;
+  border-radius: 60px;
+}
+
+#image-upload {
+  display: none;
+}
+
+#image-text {
+  padding-left: 10%;
+  font-style: italic;
+  color: #c4c3c3;
+}
+
+.group-upload img {
+  width: 10%;
+}
+
+.btn-predict {
+  margin: auto;
+  text-align: center;
+  font-weight: 700;
+  color: #FFFFFF;
+  width: 150px;
+  height: 40px;
+  background: #00A257;
+  border: 1px solid #b0b0b0;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn-predict:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.container__result{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.introduce {
+  padding-top: 30px;
+  text-align: center;
+  width: 100%;
+  min-height: 222px;
+}
+
+.content {
+  padding-top: 30px;
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  /* min-height: 222px; */
+  /* align-items: baseline; */
+}
+
+.content__predict {
+  /* margin: auto; */
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-show {
+  width: 100%;
+  /* height: 100%; */
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+}
+
+
+
+#image-predict {
+  display: none;
+}
+
+/* contain result of prediction  */
+.content__result {
+  /* margin: auto; */
+  width: 70%;
+  /* height: 100%; */
+  min-height: 350px;
+  margin-bottom: 10px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.name-title {
+  margin-right: 10px;
+  font-weight: 900;
+}
+
+.paragraph {
+  margin-left: 10px;
+  margin-right: 10px;
+}

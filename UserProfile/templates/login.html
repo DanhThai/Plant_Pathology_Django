@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <script>
+        function showPassword() {
+            let password = document.getElementById("id_password");
+            password.type = password.type == "text" ? "password" : "text";
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        {% include 'messages.html' %}
+        <div class="container">
+            <div class="container__image">
+                <img src="{% static 'images/background.jpg' %}" alt="">
+            </div>
+
+            <div class="container__line"></div>
+
+            <div class="content">
+                <div class="content__header">
+                    <div class="header__logo">
+                        <img src="{% static 'images/logo_short.png' %}" alt="">
+                    </div>
+                    <p class="header__text"> Đăng Nhập</p>
+                </div>
+                <div class="content__form">
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <label for="">Email</label>
+                            <input name="email" class="input-field" type="text" placeholder="Nhập email" />
+                        </div>
+                        <div class="group-password">
+                            <label for="">Mật khẩu</label>
+                            <div class="input-password">
+                                <input required id="id_password" name="password" type="password"
+                                    placeholder="Nhập mật khẩu" />
+                                <i class="fa-solid fa-eye" onclick="showPassword()"></i>
+                                <i class="fa-solid fa-eye-slash" onclick="showPassword()"></i>
+                            </div>
+                        </div>
+                        <div class="btn-container">
+                            <input class="btn-login" type="submit" value="ĐĂNG NHẬP">
+                        </div>
+                    </form>
+                </div>
+                <div class="content__extend">
+                    <a href="{% url 'register' %}">Quên mật khẩu?</a>
+                    <div class="content__register">
+                        <a class="btn-register" href="{% url 'register' %}">ĐĂNG KÝ</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
