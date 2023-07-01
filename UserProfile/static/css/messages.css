@@ -1,6 +1,6 @@
 .alert-messages{
     z-index: 20;
-    height: 60px;
+    height: 80px;
     min-width: 30%;
     display: flex;
     align-items: center;
@@ -11,24 +11,46 @@
     position: absolute;
     right: 20px;
     top: 20px;
+    /* animation: sideInLeft ease .3s, fadeOut linear 1s 10s forwards; */
+
 }
 .alert-messages.alert-error {
     background-color: #ffffff;
     color: #ff0000;
+}
 
+.alert-messages.alert-success {
+    background-color: #ffffff;
+    color: #00A257;
+}
+
+@keyframes sideInLeft {
+    from{
+        opacity: 0;
+        transform: translateX(calc(100% + 20px));
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fadeOut {
+    to{
+        opacity: 0;
+    }
 }
 
 .message{
     display: flex;
     align-items: center;
     text-align: center;
-    gap: 10px;
+    gap: 20px;
 }
 .message strong{
     text-align: start;
 }
 
-.icon-alert-error {
+.icon {
     padding-top: 4px;
     font-size: 1.3em;
     text-align: center;

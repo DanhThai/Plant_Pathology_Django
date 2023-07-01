@@ -36,6 +36,8 @@
 
 .disease-info {
     width: 70%;
+    padding: 20px 40px;
+    box-sizing: border-box;
     min-height: 350px;
     background: #FFFFFF;
     border: 1px solid #CCCCCC;
@@ -50,4 +52,14 @@
 .paragraph {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.disease-image{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.disease-image img{
+    width: 200px;
 }

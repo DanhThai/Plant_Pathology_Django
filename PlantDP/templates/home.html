@@ -3,8 +3,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript">
+    <script>
         // var user = '{{request.user}}';
     </script>
     <script src="{% static 'js/home.js' %}">
@@ -31,14 +30,19 @@
         <div class="content">
             <div class="content__predict">
                 <div class="image-show">
-                    <img id="img-card" src= "{% static 'images/plant-image.jpg' %}" style="height: 100%;">
+                    <img id="img-card" src= "{{predicted_image}}" style="max-height: 100%; max-width: 100%;">
                 </div>
             </div>
             <div class="content__result">
                 <h2>Thông tin dự đoán</h2>
                 {% if disease is None %}
                     <div style="width: 100%; text-align: center;">
-                        <p>Kết quả dự đoán hiện thị tại đây</p>
+                        {% if is_predicted is None %}
+                            <p>Kết quả dự đoán hiện thị tại đây</p>
+                        {% else %}
+                            <p>Không dự đoán được loại bệnh!</p>
+                            <p>Hãy chọn ảnh lá cây khác.</p>
+                        {% endif %}
                     </div>
                 {% else %}
                     {% if disease.status == True %}
@@ -50,8 +54,8 @@
                             <p>Cây không bị nhiễm bệnh.</p>
                             <p>Hãy chọn lá khác để dự đoán thêm.</p>
                         </div>
+
                     {% else %}
-                    
                         <div style="display: flex; margin-left: 15px;">
                             <p class="name-title">Tên cây trồng:</p>
                             <p>{{disease.plant}}</p>
@@ -62,11 +66,11 @@
                         </div>
                         <div style="margin-left: 15px;">
                             <p class="name-title">Nguyên nhân:</p>
-                            <p class="paragraph">{{disease.cause}}</p>
+                            <p class="paragraph">{{disease.cause | linebreaksbr}}</p>
                         </div>
                         <div style="margin-left: 15px;">
                             <p class="name-title">Triệu chứng:</p>
-                            <p class="paragraph">{{disease.symptom}}</p>
+                            <p class="paragraph">{{disease.symptom | linebreaksbr}}</p>
                         </div>
                         <div style="margin-left: 15px;">
                             <p class="name-title">Biện pháp phòng ngừa:</p>

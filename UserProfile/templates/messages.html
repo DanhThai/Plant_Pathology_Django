@@ -12,8 +12,12 @@
     {% for message in messages %}
     <div class="alert-messages {{ message.tags }}">
         <div class="message">
-            <i class="fa-solid fa-circle-exclamation icon-{{ message.tags }}" style="width: 25px; height: 25px;"></i>
-            <strong>{{message | linebreaksbr}}</strong>
+            {% if message.tags == 'alert-success' %}
+                <i class="fa-solid fa-circle-check icon" style="width: 25px; height: 25px;"></i>
+            {% else %}
+                <i class="fa-solid fa-circle-exclamation icon" style="width: 25px; height: 25px;"></i>
+            {% endif %}
+                <strong>{{message | linebreaksbr}}</strong>
         </div>
         <i class="fa-solid fa-xmark close-message" onclick="closeMessage()"></i>
     </div>

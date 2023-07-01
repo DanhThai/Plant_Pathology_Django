@@ -2,35 +2,77 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/diseases.css' %}">
+<link rel="stylesheet" href="{% static 'css/diseases.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="content">
-        <div class="content__header">
-            <p>Các loại bệnh</p>
-            <form action="" method="POST" enctype="multipart/form-data">
-                <div class="search-group">
-                    <input type="text" class="search-text" placeholder="Nhập tên bệnh.">
-                    <button type="submit" class="search-btn">
-                      <img src="{% static 'images/search_icon.svg' %}" alt="">
-                   </button>
-                </div>
-            </form>
-        </div>
-        <div class="content__line"></div>
-        <div class="list-card">
+<div class="content">
+    <div class="content__header">
+        <p>Các loại bệnh</p>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="search-group">
+                <select name="plant" id="" class="search-select">
+                    <option value="0" selected>Tất cả</option>
+                    {% for plant in plants %}
+                    <option value="{{plant.id}}">{{plant.name}}</option>
+                    {% endfor %}
+
+                </select>
+                <input type="text" name="search-name" class="search-text" placeholder="Nhập tên bệnh.">
+                <button type="submit" class="search-btn">Tìm kiếm</button>
+            </div>
+        </form>
+    </div>
+    <div class="content__line"></div>
+    {% if diseases %}
+    <!-- <div class="list-card">
             {% for disease in diseases %}
                 <div class="card-item"> 
-                    <div class="plant-image">
-                        <a href="{% url 'disease-detail-page' id=disease.id %}"><img src="{% static 'images/plant-image.jpg' %}" alt="plant-image"></a>
-                    </div>
+
                     <p class="disease-name">{{disease.name}}</p>
                     <p class="plant-name">{{disease.plant}}</p>
                     <p class="discription">{{disease.cause}}p>
                 </div>
-            {% endfor %}
-
-        </div>
+            {% endfor %}  
+        </div> -->
+    <div class="content__main">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tên Bệnh</th>
+                    <th>Loại cây trồng</th>
+                    <th>Nguyên nhân</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for disease in diseases %}
+                <tr>
+                    <td>
+                        <p class="disease-name">{{disease.name}}</p>
+                    </td>
+    
+                    <td class="text-center">
+                        <p class="plant-name">{{disease.plant}}</p>
+                    </td>
+                    <td>
+                        <p class="cause">{{disease.cause}}</p>
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'disease-detail-page' id=disease.id %}" class="redirect-detail">Xem chi tiết</a>
+                    </td>
+    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% else %}
+    <div class="not-found" style="text-align: center;">
+        <p>Không tìm thấy loại bệnh nào.</p>
+        <p>Bạn hãy tìm kiếm loại bệnh khác.</p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

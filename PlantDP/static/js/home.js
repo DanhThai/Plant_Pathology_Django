@@ -1,5 +1,4 @@
 $(document).ready(function() { 
-    console.log(user);
     if ($('#img-card').attr('src') == ""){    
       switchCard(true);
     }
@@ -40,11 +39,13 @@ switchCard = function(isIntroduce) {
     result.prepend('<div class="introduce"> \
                 <p>Bạn hãy upload ảnh lá cây trồng</p> \
                 <p>Các cây trồng bao gồm: cà chua, táo, ngô, nho</p></div>');
-    console.log(result);
     $('.content').hide();
+    $(".btn-predict").hide();
+
   }
   else{
     $(".introduce").remove();
     $('.content').show();
+    $(".btn-predict").show();
   }
 }

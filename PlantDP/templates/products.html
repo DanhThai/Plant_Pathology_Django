@@ -1,0 +1,64 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <script>
+        var csrf_token = '{{csrf_token}}';
+    </script>
+    <script src="{% static 'js/products.js' %}"> </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+
+        <div class="content__header">
+            <p>Các loại sản phẩm</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="search-group">
+                    <select name="category_id" id="" class="search-select">
+                        <option value="0" selected>Tất cả</option>
+                        {% for category in categories %}
+                        <option value="{{category.id}}" 
+                            {% if category_id == category.id %} selected {% endif %}
+                            >{{category.name}}</option>
+                        {% endfor %}
+                        
+                    </select>
+                    <input type="text" name="search-name" class="search-text" placeholder="Nhập tên bệnh.">
+                    <button type="submit" class="search-btn">Tìm kiếm</button>
+                </div>
+            </form>
+        </div>
+        <div class="content__line"></div>
+        {% if products %}
+        <div class="list-card">
+            {% for product in products %}
+                <div class="card-item"> 
+                    <div class="pesticide-image">
+                        <a href="{% url 'product-detail-page' id=product.id %}">
+                            <img src="{{product.thumbnail}}" alt="plant-image">
+                        </a>
+                    </div>
+                    <p class="pesticide-name">{{product.name}}</p>
+                    <p class="producer">{{product.brand}}</p>
+                    <div class="price-cart">
+                        <p class="price">{{product.price}} đ</p>
+                        <!-- <a href="" class="add-cart">Thêm vào giỏ hàng</a> -->
+                        <button data-product="{{product.id}}" data-action="add" class="add-cart-btn">Thêm vào giỏ hàng </button>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        {% else %}
+        <div class="not-found" style="text-align: center;"> 
+            <p>Không tìm thấy sản phẩm nào.</p>
+            <p>Bạn hãy tìm kiếm sản phẩm khác.</p>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

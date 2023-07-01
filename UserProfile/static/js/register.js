@@ -43,9 +43,10 @@ function showMap() {
             lng = position.coords.longitude;
             console.log(lat, lng);
             // this is just a marker placed in that position
-            marker = L.marker([lat, lng]).addTo(map);
+            marker = L.marker([lng, lat]).addTo(map);
+
             // move the map to have the location in its center
-            map.panTo(new L.LatLng(lat, lng));
+            map.panTo(new L.LatLng(lng, lat));
         });
     }
 

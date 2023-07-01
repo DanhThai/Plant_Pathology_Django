@@ -59,6 +59,7 @@
 
 .content__main{
     width: 80%;
+    min-height: 300px;
     border: #00A257;
     padding: 20px;
     box-sizing: border-box;
@@ -104,10 +105,14 @@
 .product-info{
     display: flex;
     align-items: center;
+    height: 110px;
 }
+
 .product-info img{
-    height: 120px;
+    max-height: 80px;
+    max-width: 80px;
 }
+
 .product-info .product__name{
     color: #00A257;
     font-weight: 600;
@@ -138,8 +143,10 @@
     font-weight: 500;
     color: red;
 }
-.remove-product img{
-    width: 15px;
+.remove-product{
+    background-color: #fff;
+    border: none;
+    outline: none;
     color: red;
 }
 

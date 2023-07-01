@@ -8,11 +8,9 @@
   src="https://www.paypal.com/sdk/js?client-id=AVSSyB0LNEiWAAfyElAfkbVqbIOcV4xEwwVYR--k6OF_iUfjZZGrDxpTzQtCxcoqPLU4AV4CTObg22Tx&currency=USD"></script>
 
 <script>
-  var total_price = Number('{{cart.TotalPrice}}');
   var cart_id = '{{cart.user_id}}';
   var csrf_token = '{{csrf_token}}';
   var user = '{{user}}';
-  console.log(user);
 </script>
 
 <script src="{% static 'js/shopping-cart.js' %}"></script>
@@ -50,14 +48,15 @@
           </tr>
         </thead>
         <tbody>
+
           {% for cart_item in cart_items %}
           <tr>
             <td>
               <div class="product-info">
-                <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="product-image">
+                <img src="{{cart_item.product.thumbnail}}" alt="product-image">
                 <div>
-                  <p class="product__name">Xử lý tuyến trùng trong đất – AT Padave 1kg</p>
-                  <p>Nhà máy nông nghiệp</p>
+                  <p class="product__name">{{cart_item.product.name}}</p>
+                  <p>{{cart_item.product.producer}}</p>
                 </div>
               </div>
             </td>
@@ -65,12 +64,12 @@
             <td class="text-center">
               <div class="quantity">
                 <button class="quantity__btn">
-                  <img src="{% static 'images/minus-solid.svg' %}"
+                  <img src="{% static 'images/minus-solid.svg' %}" data-action="update"
                     onclick="EditQuantity('-','{{cart_item.id}}', '{{cart.id}}')" alt="">
                 </button>
                 <input class="quantity__number cart-item-{{cart_item.id}}" value="{{cart_item.quantity}}" disabled />
                 <button class="quantity__btn">
-                  <img src="{% static 'images/plus-solid.svg' %}"
+                  <img src="{% static 'images/plus-solid.svg' %}" data-action="update"
                     onclick="EditQuantity('+','{{cart_item.id}}', '{{cart.id}}')" alt="">
                 </button>
               </div>
@@ -81,9 +80,9 @@
               <p class="product-price cart-item-{{cart_item.id}}">{{cart_item.price}} đ</p>
             </td>
             <td class="text-center">
-              <a href="" class="remove-product">
+              <button class="remove-product" data-cart_item = "{{cart_item.id}}" data-action="remove">
                 <i class="fa-solid fa-trash-can" style="width: 20px; color: red;"></i>
-              </a>
+              </button>
             </td>
 
           </tr>
@@ -105,10 +104,10 @@
           <tr>
             <td>
               <div class="product-info">
-                <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="product-image">
+                <img src="{{cart_item.product.thumbnail}}" alt="product-image">
                 <div>
-                  <p class="product__name">Xử lý tuyến trùng trong đất – AT Padave 1kg</p>
-                  <p>Nhà máy nông nghiệp</p>
+                  <p class="product__name">{{cart_item.product.name}}</p>
+                  <p>{{cart_item.product.producer}}</p>
                 </div>
               </div>
             </td>
@@ -123,7 +122,7 @@
             </td>
             <td class="text-center">
               <p>
-                {{cart_item.checkout_time}}
+                {{cart_item.checkout_time| date:'d-m-Y H:i'}}
               </p>
             </td>
             <td class="text-center">
@@ -143,7 +142,7 @@
       </table>
     </div>
 
-    {% if is_paid == False and cart_items is not None %}
+    {% if is_paid == False and cart_items %}
     <div class="check-out-content">
       <div class="check-out">
         <div class="check-out__title">
@@ -152,7 +151,7 @@
         </div>
         <div class="check-out__title">
           <p class="title__name">Phí vận chuyển</p>
-          <p>{{cart.shipping}} đ</p>
+          <p>{{cart.shipping_fee}} đ</p>
         </div>
         <hr>
         <div class="check-out__title">
@@ -167,7 +166,7 @@
           <p class="title__name">Địa chỉ</p>
           <div class="payer_address">
             <p>{{user.address}}</p>
-            <a href="">
+            <a href="{% url 'edit-profile' %}">
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
           </div>

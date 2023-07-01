@@ -6,3 +6,4 @@ from UserProfile.models import *
 admin.site.register(CustomUser)
 admin.site.register(Cart)
 admin.site.register(CartItem)
+admin.site.register(PredictHistory)

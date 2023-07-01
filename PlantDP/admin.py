@@ -6,5 +6,6 @@ from PlantDP.models import *
 admin.site.register(Plant)
 admin.site.register(Disease)
 admin.site.register(DiseaseImage)
-admin.site.register(Pesticide)
-admin.site.register(PesticideImage)
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(ProductImage)

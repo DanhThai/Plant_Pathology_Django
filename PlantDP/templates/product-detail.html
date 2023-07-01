@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/pesticide-detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/product-detail.css' %}">
+<script>
+    var csrf_token = '{{csrf_token}}';
+</script>
+<script src="{% static 'js/product-detail.js' %}"> </script>
+
 {% endblock %}
 
 {% block content %}
-{% include 'messages.html' %}
 <div class="content">
     <div class="content__header">
         <p>Chi tiết sản phẩm</p>
@@ -16,48 +20,50 @@
         <div class="pesticide">
             <div class="pesticide-images">
                 <div class="image-focus">
-                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
+                    <img src="{{product.thumbnail}}" id="image-focus">
                 </div>
                 <div class="image-range">
-                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
-                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
-                    <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="">
+                    {% for img in product.images.all %}
+                        <img src="{{img.image}}" id="{{ forloop.counter }}" alt="" onclick="changeImage(this.id)">
+                    {% endfor %}
                 </div>
             </div>
 
             <div class="pesticide-detail">
-                <p class="pesticide__name">{{pesticide.name}}</p>
+                <p class="pesticide__name">{{product.name}}</p>
                 <div class="pesticide__info">
-                    <p class="title">Nhà sản xuất:</p>
-                    <p>{{pesticide.producer}}</p>
+                    <p class="title">Thương hiệu:</p>
+                    <p>{{product.brand}}</p>
                 </div>
                 <div class="pesticide__info">
-                    <p class="title">Sử dụng cho cây:</p>
-                    <p>{{pesticide.plant}}</p>
+                    <p class="title">Loại sản phẩm:</p>
+                    <p>{{product.type}}</p>
                 </div>
                 <div class="pesticide_description">
                     <p class="title"> Mô tả: </p>
-                    <p class="paragragh">{{pesticide.description | linebreaksbr }}</p>
+                    {{product.description | safe }}
                 </div>
                 <div class="pesticide__info">
                     <p class="title">Giá sản phẩm:</p>
-                    <p class="price">{{pesticide.price}} đ</p>
+                    <p class="price">{{product.price}} đ</p>
                 </div>
                 <div class="add-to-cart">
                     <div class="quantity">
                         <p class="title"> Số lượng:</p>
                         <div>
-                            <button class="quantity__btn">
+                            <button class="quantity__btn" onclick="EditQuantity('-')">
                                 <img src="{% static 'images/minus-solid.svg' %}" alt="">
                             </button>
-                            <input class="quantity__number" value="2" disabled />
-                            <button class="quantity__btn">
+                            <input class="quantity__number" value="1" disabled />
+                            <button class="quantity__btn" onclick="EditQuantity('+')">
                                 <img src="{% static 'images/plus-solid.svg' %}" alt="">
                             </button>
                         </div>
                     </div>
-                    <div class="add-cart-btn">
-                        <a href="">Thêm vào giỏ hàng</a>
+                    <div class="add-cart">
+                        <!-- <a href="">Thêm vào giỏ hàng</a> -->
+                        <button data-product="{{product.id}}" data-action="add" class="add-cart-btn-multi">Thêm vào giỏ hàng </button>
+
                     </div>
                 </div>
 
@@ -73,18 +79,20 @@
         <div class="content__line"></div>
 
         <div class="list-pesticides">
-            {% for pesticide_item in pesticides %}
+            {% for product_item in products %}
                 <div class="card-item"> 
                     <div class="pesticide-image">
-                        <a href="{% url 'pesticide-detail-page' id=pesticide_item.id %}">
-                            <img src="{% static 'images/AT-Mebe-1kg.jpg' %}" alt="plant-image">
+                        <a href="{% url 'product-detail-page' id=product_item.id %}">
+                            <img src="{{product_item.thumbnail}}" alt="plant-image">
                         </a>
                     </div>
-                    <p class="pesticide-name">{{pesticide_item.name}}</p>
-                    <p class="producer">{{pesticide_item.producer}}</p>
+                    <p class="pesticide-name">{{product_item.name}}</p>
+                    <p class="producer">{{product_item.brand}}</p>
                     <div class="price-cart">
-                        <p class="price">{{pesticide_item.price}} đ</p>
-                        <a href="" class="add-cart">Thêm vào giỏ hàng</a>
+                        <p class="price">{{product_item.price}} đ</p>
+                        <!-- <a href="" class="add-cart-btn">Thêm vào giỏ hàng</a> -->
+                        <button data-product="{{product_item.id}}" data-action="add" class="add-cart-btn ">Thêm vào giỏ hàng </button>
+
                     </div>
                 </div>
             {% endfor %}

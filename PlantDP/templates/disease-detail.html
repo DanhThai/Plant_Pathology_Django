@@ -24,16 +24,18 @@
             <div style="margin-left: 15px;">
                 <p class="name-title">Hình ảnh:</p>
                 <div class="disease-image">
-                    <img src="" alt="">
+                    {% for img in disease.images.all %}
+                    <img src="{{img.image.url}}" alt="">
+                    {% endfor %}
                 </div>
             </div>
             <div style="margin-left: 15px;">
                 <p class="name-title">Nguyên nhân:</p>
-                <p class="paragraph">{{disease.cause}}</p>
+                <p class="paragraph">{{disease.cause | linebreaksbr}}</p>
             </div>
             <div style="margin-left: 15px;">
                 <p class="name-title">Triệu chứng:</p>
-                <p class="paragraph">{{disease.symptom}}</p>
+                <p class="paragraph">{{disease.symptom | linebreaksbr}}</p>
             </div>
             <div style="margin-left: 15px;">
                 <p class="name-title">Biện pháp phòng ngừa:</p>

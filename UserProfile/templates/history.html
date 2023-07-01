@@ -1,0 +1,62 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/history.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="content__header">
+        <p>Lịch sử dự đoán</p>       
+    </div>
+    <div class="content__line"></div>
+    {% if histories %}
+    <div class="content__main">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Thời gian dự đoán</th>
+                    <th>Loại cây</th>
+                    <th>Nhiễm bệnh</th>
+                    <th>Xóa tất cả</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for history in histories %}
+                <tr>
+                    <td>
+                        <div class="predict-image">
+                            <img src="{{history.image.url}}" alt="plant-image">
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <p>{{history.predict_time | date:'d-m-Y H:i'}}</p>
+                    </td>
+
+                    <td class="text-center">
+                        <p>{{history.disease.plant}}</p>
+                    </td>
+
+                    <td class="text-center">
+                        <p>{{history.disease.name}}</p>
+                    </td>
+
+                    <td class="text-center">
+                        <a href="{% url 'disease-detail-page' id=history.disease.id %}" class="redirect-detail">Xem chi tiết</a>
+                    </td>
+    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="not-found" style="text-align: center;">
+        <p>Lịch sử dự đoán trống.</p>
+        <p>Bạn hãy dự đoán bệnh cây trồng <a href="{% url 'home-page' %}">tại đây</a></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
